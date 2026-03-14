@@ -19,7 +19,7 @@ Usage:
         from conversation_analyzer import analyze_conversation
         result = analyze_conversation(my_conversation)
 """
-GEMINI_API_KEY = "AIzaSyDjYG_tBvO-4IKPcE1BS4-0WrrZN9Ct5Hk"
+GEMINI_API_KEY = "_"
 import os
 import json
 import anthropic
