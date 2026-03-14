@@ -117,8 +117,8 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no expla
     raw = response.text.strip()
     clean = raw.replace("```json", "").replace("```", "").strip()
     result2 = json.loads(clean)
-    output = json.dumps(result2, ensure_ascii=False, indent=2)
-    return output
+    #output = json.dumps(result2, ensure_ascii=False, indent=2)
+    return result2
 
 
 # ── Pretty print helper ───────────────────────────────────────────────────────
@@ -151,4 +151,5 @@ if __name__ == "__main__":
     #print_results(result)
 
     print(result)
-    #print(json.dumps(result, ensure_ascii=False, indent=2))
+    with open("output.json", "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
