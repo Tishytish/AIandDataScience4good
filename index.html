@@ -1,70 +1,15 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roh</title>
-    <style>
-      /* your styles here */
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Ro — English Learning Companion</title>
+    <meta name="description" content="Ro helps Rohingya refugees learn English through real conversations" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hanifi+Rohingya&display=swap" rel="stylesheet">
   </head>
   <body>
-    <!-- your buttons and text here -->
-    <div id="options-container"></div>
-
-    <button onclick="startFlow()">Start</button>
-
-    <script>
-      // your speak() logic and click handlers here
-      async function loadData() {
-  const response = await fetch("output.json");
-  const raw = await response.json();
-
-  // Reshape into the format your app expects
-  const data = {
-    translation_rohingya: raw.last_message_spanish,
-    options: [
-      { rohingya: raw.suggestion_1_spanish, english: raw.suggestion_1_english },
-      { rohingya: raw.suggestion_2_spanish, english: raw.suggestion_2_english },
-      { rohingya: raw.suggestion_3_spanish, english: raw.suggestion_3_english }
-    ]
-  };
-
-  return data;
-}
-
-function showButtons(data) {  // receives data as a parameter now
-  const container = document.getElementById("options-container");
-  container.innerHTML = "";  // clear old buttons if any
-
-  data.options.forEach((option, i) => {
-    const btn = document.createElement("button");
-    btn.textContent = `Option ${i + 1}`;
-    btn.onclick = () => speakAndWait(option.english);
-    container.appendChild(btn);
-  });
-}
-
- function speakAndWait(text) {
-    return new Promise((resolve) => {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.onend = resolve;
-      window.speechSynthesis.speak(utterance);
-    });
-  }
-
-  async function startFlow() {
-  const data = await loadData();  // fetch and reshape first
-
-  await speakAndWait(data.translation_rohingya);
-
-  for (let i = 0; i < data.options.length; i++) {
-    await speakAndWait(`Option ${i + 1}: ${data.options[i].rohingya}`);
-  }
-
-  showButtons(data);  // pass data to showButtons
-}
-      
-    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
