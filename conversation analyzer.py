@@ -19,7 +19,8 @@ Usage:
         from conversation_analyzer import analyze_conversation
         result = analyze_conversation(my_conversation)
 """
-GEMINI_API_KEY = "_"
+import seckey
+GEMINI_API_KEY = seckey.key
 import os
 import json
 import anthropic
@@ -116,8 +117,8 @@ Return ONLY a valid JSON object with exactly these 8 keys. No preamble, no expla
     raw = response.text.strip()
     clean = raw.replace("```json", "").replace("```", "").strip()
     result2 = json.loads(clean)
-    
-    return result2
+    output = json.dumps(result2, ensure_ascii=False, indent=2)
+    return output
 
 
 # ── Pretty print helper ───────────────────────────────────────────────────────
@@ -147,7 +148,7 @@ if __name__ == "__main__":
 
     result = analyze_conversation(SAMPLE_CONVERSATION)
 
-    print_results(result)
+    #print_results(result)
 
-    print("Raw JSON output:")
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+    print(result)
+    #print(json.dumps(result, ensure_ascii=False, indent=2))
